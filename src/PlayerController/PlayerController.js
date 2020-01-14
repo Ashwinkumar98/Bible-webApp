@@ -14,10 +14,9 @@ class PlayerController extends Component{
                 <i onClick={this.props.forward} className="fa fa-step-forward"></i>
             </div>
             <div className="audio_1">
-                <p>0.00</p>
-                <input id="slider"  className="audio_slider" type="range" min="0" max="100"  step="1"
-                onMouseDown={(e)=>this.props.seekDown(e)}/>
-                <p>0.00</p>
+            <p>{this.props.currTime}</p>
+                <input id="slider"  className="audio_slider" type="range" min="0" max="100"  step="1"/>
+            <p>{this.props.duration}</p>
             </div>
             <div className="volume">
                 {!this.props.Muted ? <i onClick={this.props.muted} className="fas fa-volume-up"></i> :  <i onClick={this.props.muted} className="fas fa-volume-mute"></i>}

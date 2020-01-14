@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import PlayerController from '../PlayerController/PlayerController.js';
 import logo from '../assets/logo.png';
 import './ChapterContent.css';
+import { func } from 'C:/Users/765070/AppData/Local/Microsoft/TypeScript/3.6/node_modules/@types/prop-types/index.js';
 
 class ChapterContent extends Component{
 
@@ -12,50 +13,78 @@ class ChapterContent extends Component{
             verse : null,
             index:null,
             chap:null,
+            duration:"00:00",
+            currentTime:"00:00",
             play:false,
             audio:null,
-            seek:false,
             muted:false,
             x: new Audio()
         }   
+        //this.state.x.addEventListener("timeupdate",function(){this.setDuration()});
+    }
+    setDuration=()=>{
+        let dur_min = Math.floor(this.state.x.duration/60);
+        let dur_sec = Math.floor(this.state.x.duration - dur_min * 60);
+        let cur_min = Math.floor(this.state.x.currentTime/60);
+        let cur_sec = Math.floor(this.state.x.currentTime - cur_min * 60);
+        if(dur_sec<10){
+            dur_sec=dur_sec+"0";
+        }
+        if(dur_min<10){
+            dur_min="0"+dur_min;
+        }
+        if(cur_min<10){
+            cur_min="0"+cur_min;
+        }
+        if(cur_sec<10){
+            cur_sec=cur_sec+"0";
+        }
+        this.setState({
+            duration: dur_min+":"+dur_sec,
+            currentTime:cur_min+":"+cur_sec
+        });   
+    }
+
+    setData=(val,audio_pos)=>{
+        this.setState({
+            verse : this.state.chapters.Chapter[val],
+            index:val,
+            audio:'http://wordproaudio.org/bibles/app/audio/30/'+this.state.chap+'/'+ audio_pos +'.mp3' ,
+            play: true
+        },()=>{
+            this.state.x.src=this.state.audio;
+            this.state.x.load();
+            this.state.x.play().then(_=>{
+                console.log("Playing");
+                this.setDuration();
+            }).catch(err=>{
+                console.log(err);
+            });
+        });
     }
     
     getVerse=(e)=>{
         e.preventDefault();
         let val = e.target.value;
         val++;
-        this.setState({
-            verse : this.state.chapters.Chapter[e.target.value],
-            index:val,
-            audio:'http://wordproaudio.org/bibles/app/audio/30/'+this.state.chap+'/'+val+'.mp3' ,
-            play: false
-        },()=>this.state.x.pause());
+        this.setData(val,val);
     }
 
     forward_play=()=>{
         let val = this.state.index;
         val++;
+        let audio_pos = val+1;
         if(val<this.state.chapters.Chapter.length){
-            this.setState({
-                verse : this.state.chapters.Chapter[val],
-                index:val,
-                audio:'http://wordproaudio.org/bibles/app/audio/30/'+this.state.chap+'/'+val+'.mp3' ,
-                play: true
-            },()=>{this.state.x.src=this.state.audio;this.state.x.play()});
-        }
-        
+            this.setData(val,audio_pos);
+        } 
     }
 
     Backward_play=()=>{
         let val = this.state.index;
         val--;
-        if(val>0){
-            this.setState({
-                verse : this.state.chapters.Chapter[val],
-                index:val,
-                audio:'http://wordproaudio.org/bibles/app/audio/30/'+this.state.chap+'/'+val+'.mp3' ,
-                play: true
-            },()=>{this.state.x.src=this.state.audio;this.state.x.play()});
+        let audio_pos = val+1;
+        if(val>=0){
+           this.setData(val,audio_pos);
         }
     }
 
@@ -67,26 +96,15 @@ class ChapterContent extends Component{
 
     toggleMusic=()=>{
         this.setState({
-            play:!this.state.play
-        },()=>{this.state.play ? this.state.x.play():this.state.x.pause();})
+            play:!this.state.play,
+            duration: Math.round(this.state.x.duration/60) +":"+ Math.round(this.state.x.duration- Math.round(this.state.x.duration/60)*60),
+            currentTime: Math.round(this.state.x.currentTime/60) +":"+ Math.round(this.state.x.currentTime- Math.round(this.state.x.currentTime/60)*60),
+        },()=>{this.state.play ? this.state.x.play() :this.state.x.pause();})
     }
 
     setVolume=(e)=>{
         this.state.x.volume=(e.target.value)/100;
     }
-
-    seekingDown=(e)=>{
-        let x=document.getElementById("slider");
-        this.setState({
-            seek : true
-        },()=>{
-            if(this.state.seek){
-                let seekto = this.state.x.duration * (e.target.value / 100);
-	            this.state.x.currentTime = seekto;
-            }
-        })
-    }
-
 
     componentWillMount(){
 
@@ -95,13 +113,13 @@ class ChapterContent extends Component{
                 this.setState({
                     chapters : data[0],
                     verse : data[0].Chapter[0],
-                    index:1,
+                    index:0,
                     chap:this.props.location.state.data.no,
-                    audio :'http://wordproaudio.org/bibles/app/audio/30/'+this.props.location.state.data.no+'/'+'1.mp3'
+                    audio :'http://wordproaudio.org/bibles/app/audio/30/'+this.props.location.state.data.no+'/'+'1.mp3',
+                   
                 },()=>this.state.x.src=this.state.audio)
             });
-        })
-        
+        });
     }
     render(){
         return(
@@ -132,7 +150,7 @@ class ChapterContent extends Component{
             
             {this.state.verse!=null && this.state.chapters!=null &&
             <div className="verse_2">
-                <p>#{this.state.chapters.title} / அத்தியாயம் {this.state.index}</p>
+                <p>#{this.state.chapters.title} / அத்தியாயம் {this.state.index+1}</p>
                 <div className="verse_1">
                 {this.state.verse.Verse.map((data,index)=>
                     <p key={index}>{index+1}. {data.Verse}</p>)}
@@ -142,7 +160,8 @@ class ChapterContent extends Component{
                 isplay={this.state.play}
                 Muted={this.state.muted}
                 muted={this.muted}
-                seeking={this.seeking}
+                currTime={this.state.currentTime}
+                duration={this.state.duration}
                 setVolume={this.setVolume}
                 playMusic={this.toggleMusic}
                 forward={this.forward_play}
