@@ -1,0 +1,21 @@
+.verse_1{
+    font-weight: bold;
+    text-align: center;
+    padding: 2px;
+}
+
+.verse_2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 4rem;
+}
+
+.verse_1 p{
+    padding: 1rem;
+    margin: 1rem;
+    text-align: left;
+    color: white;
+    border-bottom: 1px solid #c2c2c2;
+}

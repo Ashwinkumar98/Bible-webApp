@@ -34,38 +34,8 @@
     align-items: center;
 }
 
-.audio_slider{
-    -webkit-appearance: none;
-    width: 90%;
-    height: 2px;
-    background-color: white;
-    outline: none;
-    opacity: 0.7;
-    margin-top: 0.8rem;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
- }
-
- .audio_slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-    background: white;
-    cursor: pointer;
-  }
-  
-  .audio_slider::-moz-range-thumb {
-    width: 15px;
-    height: 15px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
   .volume{
       display: flex;
-      
       flex-direction: row;
       align-items: center;
   }
@@ -76,31 +46,82 @@
       margin-right: 10px; 
       cursor: pointer;
   }
+  
 
-  .volume input{
+  input[type="range"]{
+    overflow: hidden;
+    width: 100%;
+    height: 4px;
     -webkit-appearance: none;
-    height: 2px;
-    background: white;
+    background-color:white;
     outline: none;
     opacity: 0.7;
-    margin-top: 0.8rem;
+    margin-top: 0.5rem;
     -webkit-transition: .2s;
     transition: opacity .2s;
  }
 
- .volume input::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-    background: white;
+
+ input[type="range"]::-webkit-slider-runnable-track {
+  height: 10px;
+  -webkit-appearance: none;
+  color: #13bba4;
+  margin-top: -1px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  background:rgb(106, 113, 121);
+  box-shadow: -100rem 0 0 100rem #43e5f7;
+}
+
+@media(max-width:45rem){
+  .mob_player_background{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #2a2a35;
+    width: 100%;
+    height: 70px;
+    padding: 5px;
+    color: white;
+}
+   .mob_audio_duration{
+     margin-top: 5px;
+     height: 15px;
+     width: 90%;
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     justify-content: space-between;
+   }
+
+   .mob_play_back_button{
+     width: 90%;
+     height: 20px;
+   }
+
+   .mob_play_back_button{
+      margin-top: 5px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+  }
+
+  .mob_play_back_button i{
+    font-size: 2rem;
     cursor: pointer;
   }
-  
-  .volume input::-moz-range-thumb {
-    width: 15px;
-    height: 15px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+}
+
+
+
