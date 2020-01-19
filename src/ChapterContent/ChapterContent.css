@@ -1,3 +1,9 @@
+.background_1{
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    opacity: 0.2;
+}
+
 .container_2{
     background: #424253;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
@@ -54,20 +60,6 @@
     font-size: 1rem;
     margin:1rem;
 }
-.chapter_options{
-    width: 250px;
-    background: white;
-    height: 35px;
-    border: 2px solid #424253;
-    border-radius: 1rem;
-    outline: none;
-    -webkit-appearance: menulist-button;
-}
-
-.option{
-    font-size: 1rem;
-    color: black;
-}
 
 .Play_Button {
     color: white;
@@ -84,6 +76,16 @@
 }
 
 .Play_Button:focus {outline:0;}
+
+.chapter_options{
+    width: 250px;
+    height: 30px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    border: 2px solid #424253;
+    border-radius: 1rem;
+    outline: 0;
+    font-size: 0.8rem;
+}
 
 @media(max-width:40rem){
     .container_2 img{

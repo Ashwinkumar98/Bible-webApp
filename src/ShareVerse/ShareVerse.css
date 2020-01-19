@@ -1,0 +1,17 @@
+.modal {
+    position: fixed;
+    z-index: 10;
+    background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRnxkX7qcbDqyBE_H_sD5xWWJPtDO-16gVNttAJ7EJGHrPpHFbW);
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    width: 60%;
+    height: 25%;
+    top:10rem;
+    left: 16rem;
+    color: white;
+  }
+
+  p{
+      font-weight: bold;
+      font-size: 1rem;
+  }

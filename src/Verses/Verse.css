@@ -19,3 +19,9 @@
     color: white;
     border-bottom: 1px solid #c2c2c2;
 }
+
+
+.verse_1 p:hover{
+   color: lightgray;
+   cursor: pointer;
+}

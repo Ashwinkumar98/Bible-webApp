@@ -1,13 +1,13 @@
 import React,{Component} from 'react';
 import PlayerController from '../PlayerController/PlayerController.js';
 import logo from '../assets/logo.png';
+import SharedVerse from '../ShareVerse/ShareVerse.js'
 import  Verse from '../Verses/Verse.js';
 import './ChapterContent.css';
 
 class ChapterContent extends Component{
 
     x = new Audio();
-    _isMounted = false
     constructor(props){
         super(props);
         this.state={
@@ -15,14 +15,15 @@ class ChapterContent extends Component{
             verse : null,
             index:null,
             chap:null,
+            shareData:null,
             duration:"00:00",
             currentTime:"00:00",
             play:false,
             audio:null,
             muted:false,
-        }   
+            background : 'background_1'
+        }  
     }
-
     setCurrentTime=()=>{
         let cur_min = Math.floor(this.x.currentTime/60);
         let cur_sec = Math.floor(this.x.currentTime - cur_min * 60);
@@ -62,7 +63,6 @@ class ChapterContent extends Component{
     }
 
     setData=(index,chapterToLoad,audio_pos)=>{
-        console.log(index+" "+chapterToLoad);
         this.setState({
             verse : this.state.chapters.Chapter[chapterToLoad],
             index:index,
@@ -73,6 +73,7 @@ class ChapterContent extends Component{
             this.x.load();
             this.x.play().then(_=>{
                 this.setDuration();
+                this.seekingTimeUpdate();
             }).catch(err=>{
                 console.log(err);});});
     }
@@ -118,29 +119,33 @@ class ChapterContent extends Component{
         this.x.volume=(e.target.value)/100;
     }
 
-    stopMusic=async()=>{
-        this.x.pause();
-    }
-
     seekmove=(e)=>{
             let seekto = this.x.duration * ( e.target.value / 100);
             if(seekto<this.x.duration){
                 this.x.currentTime = seekto;
             }     
         }
-
+    getData=(e,data)=>{
+        e.preventDefault();
+        console.log(data);
+        this.setState({
+            shareData : data
+        })
+    }
+    closeModal=()=>{
+        this.setState({
+            shareData:null
+        })
+    }
     seekingTimeUpdate=()=>{
         let slider=document.getElementById("sliders");
         setInterval(()=>{
             slider.value=this.x.currentTime * (100/this.x.duration);
         },10);
     }
-
-    componentDidMount(){
-        this._isMounted = true;
+    componentWillMount(){
         fetch('http://localhost:3000/bible/'+this.props.location.state.data.name).then((res)=>{
             res.json().then((data)=>{
-                if (this._isMounted) {
                     this.setState({
                         chapters : data[0],
                         verse : data[0].Chapter[0],
@@ -149,8 +154,7 @@ class ChapterContent extends Component{
                         audio :'http://wordproaudio.org/bibles/app/audio/30/'+this.props.location.state.data.no+'/'+'1.mp3',
                        
                     },()=>this.x.src=this.state.audio)
-                } }); });
-
+                 }); });
          setInterval(() => {
             this.setCurrentTime();
             if(this.x.ended==true){
@@ -159,13 +163,11 @@ class ChapterContent extends Component{
         }, 10); 
     }
     componentWillUnmount(){
-     
-       this.stopMusic();
-       this._isMounted = false;
+       this.x.pause();
     }
     render(){
-        return(
-            <div className="background_2">
+        return(<div>
+            <div className={this.state.shareData!=null ? this.state.background : null}>
               {this.state.chapters!=null && 
               <div className="chapter_info">
                     <div className="container_2">
@@ -189,6 +191,7 @@ class ChapterContent extends Component{
                 </select>
             </div>}
             <Verse verse={this.state.verse} 
+                   getVerse={this.getData}
                    chapters={this.state.chapters}
                    index={this.state.index}/>
              {this.state.chapters!=null && <PlayerController 
@@ -204,6 +207,7 @@ class ChapterContent extends Component{
                 backward={this.Backward_play}
                 />}
             </div>
+            <div> {this.state.shareData!=null ? <SharedVerse close={this.closeModal} data={this.state.shareData}/> : null}</div></div>
         )}
 }
 export default ChapterContent;
