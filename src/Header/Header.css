@@ -1,0 +1,33 @@
+.Header_background{
+    background: #424253;
+    color: white;
+    margin-top: -1rem;
+}
+
+.nav_link{
+    list-style: none;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.nav_link li{
+    margin-right: 4rem;
+    font-size: 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+}
+
+.nav_link_items{
+    text-decoration: none;
+    color: white;
+}
+
+.nav_link li:hover,
+.nav_link li:active{
+    color:  rgb(112, 209, 241);
+}

@@ -1,17 +1,172 @@
 .modal {
     position: fixed;
+    display: inline-block;
     z-index: 10;
-    background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRnxkX7qcbDqyBE_H_sD5xWWJPtDO-16gVNttAJ7EJGHrPpHFbW);
+    background: #424253;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    border-radius: 1rem;
     padding: 1rem;
     width: 60%;
-    height: 25%;
+    height: max-content;
     top:10rem;
-    left: 16rem;
-    color: white;
+    left: 22rem;
+    color :white;
   }
 
-  p{
-      font-weight: bold;
-      font-size: 1rem;
+  .img_123{
+      width: 8%;
+      height: 8%;
+      margin-right: 1rem;
   }
+
+  .img_share_container{
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: baseline;
+  }
+
+  .shared_verse_12{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+  }
+
+  .shared_verse_12 p{
+      clear: both;
+  }
+
+  .chapter_no{
+    color: #ff8c00;
+    float: right;
+}
+
+.pop_buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: baseline;
+}
+
+.pop_buttons span{
+    margin:4px;
+}
+
+.close {
+    color: #aaaaaa;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .share {
+    color: #aaaaaa;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .share:hover,
+  .share:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  
+@media(max-width:45rem) and (orientation :Portrait){
+    .modal {
+        display: inline-block;
+        width: 80%;
+        height: max-content;
+        top:8rem;
+        left: 2rem;
+      }
+      
+    .img_123{
+        width: 20%;
+        height: 20%;
+    }
+
+      .img_share_container{
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .img_share_container p{
+       margin-top: -1px;
+    }
+}
+
+  
+@media(max-width:45rem) and (orientation :landscape){
+    .modal {
+        display: inline-block;
+        width: 80%;
+        height: max-content;
+        top:10px;
+        left: 2.5rem;
+      }
+      
+      .img_share_container p{
+        margin-top: -1px;
+     }  
+}
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) and (orientation : portrait){
+    .modal {
+        display: inline-block;
+        width: 80%;
+        height: max-content;
+        top:16rem;
+        left: 4.5rem;
+      }
+}
+
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) and (orientation : landscape){
+    .modal {
+        display: inline-block;
+        width: 80%;
+        height: max-content;
+        top:12rem;
+        left: 5.5rem;
+      }
+}
+
+@media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (-webkit-min-device-pixel-ratio: 1.5) and (orientation : portrait){
+    .modal {
+        display: inline-block;
+        width: 80%;
+        height: max-content;
+        top:20rem;
+        left: 5.5rem;
+      }
+}
+
+@media only screen 
+  and (min-width: 1024px) 
+  and (max-height: 1366px) 
+  and (-webkit-min-device-pixel-ratio: 1.5) and (orientation : landscape){
+    .modal {
+        display: inline-block;
+        width: 80%;
+        height: max-content;
+        top:16rem;
+        left: 6.5rem;
+      }
+}

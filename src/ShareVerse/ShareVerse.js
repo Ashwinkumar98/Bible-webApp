@@ -1,10 +1,21 @@
 import React from 'react';
+import logo from '../assets/logo.png';
 import './ShareVerse.css';
 
 const Shareverse=(props)=>{
     return(<div className="modal">
-        <p>{props.data.Verse}</p>
-        <button onClick={props.close}>close</button>
+       <div className="pop_buttons">
+            {props.isVerse==true ?<span className="fa fa-share-alt share"></span> : null}
+            <span onClick={props.close} className="close">&times;</span>
+       </div>
+        <div className="img_share_container">
+            <img className="img_123" src={logo}/>
+            <p>Holy Bible</p>
+        </div>
+        <div className="shared_verse_12">
+            {props.isVerse==true ? <p>{props.data.Verse}</p> : <p>The  purpose of the app is to read bible easily in tamil with audio. Please feel free to email me with any feedback about the website</p>}
+            {props.isVerse==true ? <p className="chapter_no">-: {props.chapter} {props.chapterNo}:{props.verseNo}</p> : <p className="chapter_no">rpaswin008@gmail.com</p>}
+        </div>
     </div>)
 }
 

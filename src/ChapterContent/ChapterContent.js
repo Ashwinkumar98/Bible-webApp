@@ -4,9 +4,7 @@ import logo from '../assets/logo.png';
 import SharedVerse from '../ShareVerse/ShareVerse.js'
 import  Verse from '../Verses/Verse.js';
 import './ChapterContent.css';
-
 class ChapterContent extends Component{
-
     x = new Audio();
     constructor(props){
         super(props);
@@ -16,6 +14,7 @@ class ChapterContent extends Component{
             index:null,
             chap:null,
             shareData:null,
+            verseNo :null,
             duration:"00:00",
             currentTime:"00:00",
             play:false,
@@ -37,7 +36,6 @@ class ChapterContent extends Component{
             currentTime:cur_min+":"+cur_sec
         });   
     }
-
     setDuration=()=>{
         let dur_min = Math.floor(this.x.duration/60);
         let dur_sec = Math.floor(this.x.duration - dur_min * 60);
@@ -51,7 +49,6 @@ class ChapterContent extends Component{
             duration: dur_min+":"+dur_sec
         });   
     }
-
     switchTrack=()=>{
         let val=this.state.index;
         val++;
@@ -61,7 +58,6 @@ class ChapterContent extends Component{
            this.setData(val,this.state.index,val);
        }
     }
-
     setData=(index,chapterToLoad,audio_pos)=>{
         this.setState({
             verse : this.state.chapters.Chapter[chapterToLoad],
@@ -77,13 +73,11 @@ class ChapterContent extends Component{
             }).catch(err=>{
                 console.log(err);});});
     }
-    
     getVerse=(e)=>{
         let val = e.target.value;
         let index=++val;
         this.setData(index,e.target.value,index);
     }
-
     forward_play=()=>{
         let val = this.state.index;
         val++;
@@ -91,7 +85,6 @@ class ChapterContent extends Component{
             this.setData(val,this.state.index,val);
         } 
     }
-
     Backward_play=()=>{
         let val = this.state.index;
         val--;
@@ -100,13 +93,11 @@ class ChapterContent extends Component{
            this.setData(val,--val,audio_pos);
         }
     }
-
     muted=()=>{
        this.setState({
            muted : !this.state.muted
        },()=>this.x.muted=this.state.muted);
     }
-
     toggleMusic=()=>{
         this.setState({
             play:!this.state.play,
@@ -114,27 +105,27 @@ class ChapterContent extends Component{
         this.setDuration();
         this.seekingTimeUpdate();
     }
-    
     setVolume=(e)=>{
         this.x.volume=(e.target.value)/100;
     }
-
     seekmove=(e)=>{
             let seekto = this.x.duration * ( e.target.value / 100);
             if(seekto<this.x.duration){
                 this.x.currentTime = seekto;
             }     
         }
-    getData=(e,data)=>{
+    getData=(e,data,verseNo)=>{
         e.preventDefault();
-        console.log(data);
+        verseNo++;
         this.setState({
-            shareData : data
+            shareData : data,
+            verseNo:verseNo
         })
     }
     closeModal=()=>{
         this.setState({
-            shareData:null
+            shareData:null,
+            verseNo:null
         })
     }
     seekingTimeUpdate=()=>{
@@ -207,7 +198,12 @@ class ChapterContent extends Component{
                 backward={this.Backward_play}
                 />}
             </div>
-            <div> {this.state.shareData!=null ? <SharedVerse close={this.closeModal} data={this.state.shareData}/> : null}</div></div>
+            <div> {this.state.shareData!=null ? <SharedVerse close={this.closeModal} 
+                                                            data={this.state.shareData} 
+                                                            isVerse={true}
+                                                            chapter={this.props.location.state.data.name} 
+                                                            chapterNo={this.state.index} 
+                                                            verseNo={this.state.verseNo}/> : null}</div></div>
         )}
 }
 export default ChapterContent;

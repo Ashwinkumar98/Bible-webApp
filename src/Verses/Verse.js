@@ -8,7 +8,7 @@ const Verse=(props)=>{
                 <p>#{props.chapters.title} / அத்தியாயம் {props.index}</p>
                 <div className="verse_1">
                 {props.verse.Verse.map((data,index)=>
-                    <div id="modal" key={index} onClick={(e)=>props.getVerse(e,data)}><p>{index+1}. {data.Verse}</p></div>
+                    <div id="modal" key={index} onClick={(e)=>props.getVerse(e,data,index)}><p>{index+1}. {data.Verse}</p></div>
                     )}
                 </div>
              </div>}
