@@ -62,7 +62,7 @@ class ChapterContent extends Component{
         this.setState({
             verse : this.state.chapters.Chapter[chapterToLoad],
             index:index,
-            audio:'http://wordproaudio.org/bibles/app/audio/30/'+this.state.chap+'/'+ audio_pos +'.mp3' ,
+            audio:'https://wordproaudio.org/bibles/app/audio/30/'+this.state.chap+'/'+ audio_pos +'.mp3' ,
             play: true
         },()=>{
             this.x.src=this.state.audio;
@@ -135,7 +135,7 @@ class ChapterContent extends Component{
         },10);
     }
     componentWillMount(){
-        fetch('http://localhost:3000/bible/'+this.props.location.state.data.name).then((res)=>{
+        fetch('http://tamilbible.herokuapp.com/bible/'+this.props.location.state.data.name).then((res)=>{
             res.json().then((data)=>{
                     this.setState({
                         chapters : data[0],
