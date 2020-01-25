@@ -1,7 +1,9 @@
 import React,{Component} from 'react';
 import PlayerController from '../PlayerController/PlayerController.js';
 import logo from '../assets/logo.png';
-import SharedVerse from '../ShareVerse/ShareVerse.js'
+import SharedVerse from '../ShareVerse/ShareVerse.js';
+import Error from '../Errorpage/Error.js';
+import Loading from '../Loading/Loading.js';
 import  Verse from '../Verses/Verse.js';
 import './ChapterContent.css';
 class ChapterContent extends Component{
@@ -14,6 +16,7 @@ class ChapterContent extends Component{
             index:null,
             chap:null,
             shareData:null,
+            err:null,
             verseNo :null,
             duration:"00:00",
             currentTime:"00:00",
@@ -136,16 +139,25 @@ class ChapterContent extends Component{
     }
     componentWillMount(){
         fetch('http://tamilbible.herokuapp.com/bible/'+this.props.location.state.data.name).then((res)=>{
-            res.json().then((data)=>{
-                    this.setState({
-                        chapters : data[0],
-                        verse : data[0].Chapter[0],
-                        index:1,
-                        chap:this.props.location.state.data.no,
-                        audio :'http://wordproaudio.org/bibles/app/audio/30/'+this.props.location.state.data.no+'/'+'1.mp3',
-                       
-                    },()=>this.x.src=this.state.audio)
-                 }); });
+                    if(res.ok){
+                        res.json().then((data)=>{
+                            this.setState({
+                                chapters : data[0],
+                                verse : data[0].Chapter[0],
+                                index:1,
+                                chap:this.props.location.state.data.no,
+                                audio :'http://wordproaudio.org/bibles/app/audio/30/'+this.props.location.state.data.no+'/'+'1.mp3',
+                               
+                            },()=>this.x.src=this.state.audio)
+                         }); 
+                    }else{
+                        throw new Error('Something went wrong . Please try again after some times');
+                    }
+            }).catch((err)=>{
+                this.setState({
+                    err:err
+                })
+            });
          setInterval(() => {
             this.setCurrentTime();
             if(this.x.ended==true){
@@ -157,7 +169,7 @@ class ChapterContent extends Component{
        this.x.pause();
     }
     render(){
-        return(<div>
+        return(this. state.chapters!=null ? <div>
             <div className={this.state.shareData!=null ? this.state.background : null}>
               {this.state.chapters!=null && 
               <div className="chapter_info">
@@ -203,7 +215,7 @@ class ChapterContent extends Component{
                                                             isVerse={true}
                                                             chapter={this.props.location.state.data.name} 
                                                             chapterNo={this.state.index} 
-                                                            verseNo={this.state.verseNo}/> : null}</div></div>
-        )}
+                                                            verseNo={this.state.verseNo}/> : null}</div>
+</div>:this.state.err===null ? <Loading/> : <Error/>)}
 }
 export default ChapterContent;
