@@ -24,6 +24,7 @@ class App extends React.Component {
       <Router>
       <Header handlepopup={this.handlePopUp}/>
       <div className="background">
+        <Redirect from="/" to="/contents"/>
         <Switch>
           <Route path="/contents" component={ListChapter}/>
           <Route path="/chapter" component = {ChapterContent}/>

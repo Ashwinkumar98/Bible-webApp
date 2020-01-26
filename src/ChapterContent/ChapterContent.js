@@ -160,7 +160,7 @@ class ChapterContent extends Component{
             });
          setInterval(() => {
             this.setCurrentTime();
-            if(this.x.ended==true){
+            if(this.x.ended===true){
                 this.switchTrack();
             }
         }, 10); 
