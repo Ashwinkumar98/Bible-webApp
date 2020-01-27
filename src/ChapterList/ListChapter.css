@@ -43,7 +43,7 @@
     font-weight: bold;
 }
 
-@media(max-width:40rem){
+@media(max-width:360px){
     .container img{
         width: 150px;
         border-radius: 1rem;

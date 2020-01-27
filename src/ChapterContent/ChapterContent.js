@@ -185,7 +185,7 @@ class ChapterContent extends Component{
                     </div>
               </div>}
               {this.state.chapters!=null && <div className="first_verse">
-                  <p className="verse_1">{this.state.chapters.Chapter[0].Verse[0].Verse}</p><p className="verse_first_no">:-{this.props.location.state.data.name} 1:1</p></div>}
+                  <p className="verse_123">{this.state.chapters.Chapter[0].Verse[0].Verse}</p><p className="verse_first_no">:-{this.props.location.state.data.name} 1:1</p></div>}
             {this.state.chapters!=null &&  <div className="chapter_1">
                 <p>Select the Chapter to Read</p>
                 <select onChange={(e)=>this.getVerse(e)}  className="chapter_options">

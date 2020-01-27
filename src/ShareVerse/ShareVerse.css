@@ -90,9 +90,14 @@
         display: inline-block;
         width: 80%;
         height: max-content;
-        top:20%;
+        top:15%;
         left:7%;
       }
+
+      .shared_verse_12 p{
+        overflow-wrap: break-word;
+       vertical-align: middle;
+    }
       
     .img_123{
         width: 20%;

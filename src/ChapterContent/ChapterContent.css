@@ -2,6 +2,7 @@
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     opacity: 0.2;
+    /* width: 100%; */
 }
 
 .container_2{
@@ -68,6 +69,11 @@
     border : 2px  rgb(39, 176, 221);
     border-radius: 0.5rem;
     cursor: pointer;
+}
+.verse_123{
+    margin: 1rem;
+    font-size: 1rem;
+    text-align: center;
 }
 
 .first_verse{
