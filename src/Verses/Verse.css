@@ -1,7 +1,7 @@
 .verse_1{
     font-weight: bold;
     text-align: center;
-    padding: 2px;
+    padding: 5px;
 }
 
 .verse_2{
@@ -13,7 +13,7 @@
 }
 
 .verse_1 p{
-    padding: 1rem;
+    padding: 1.2rem;
     margin: 1rem;
     text-align: left;
     color: white;

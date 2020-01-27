@@ -27,7 +27,7 @@ class ListChapter extends Component{
     }
 
     componentWillMount(){
-        fetch("http://tamilbible.herokuapp.com/bible/").then((res)=>{
+        fetch("https://tamilbible.herokuapp.com/bible/").then((res)=>{
              if(res.ok){
                 res.json().then((data)=>{
                     this.setState({

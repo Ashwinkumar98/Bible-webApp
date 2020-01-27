@@ -70,6 +70,17 @@
     cursor: pointer;
 }
 
+.first_verse{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.verse_first_no{
+    color: #ff8c00;
+}
+
 .Play_Button i{
     font-size: 1.2rem;
     padding: 0.2rem;

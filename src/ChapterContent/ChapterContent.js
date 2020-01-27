@@ -138,7 +138,7 @@ class ChapterContent extends Component{
         },10);
     }
     componentWillMount(){
-        fetch('http://tamilbible.herokuapp.com/bible/'+this.props.location.state.data.name).then((res)=>{
+        fetch('https://tamilbible.herokuapp.com/bible/'+this.props.location.state.data.name).then((res)=>{
                     if(res.ok){
                         res.json().then((data)=>{
                             this.setState({
@@ -184,7 +184,8 @@ class ChapterContent extends Component{
                         <button className="Play_Button" onClick={()=>this.toggleMusic()}>{!this.state.play? <i className="fa fa-play-circle">Play</i> :<i className="fa fa-pause-circle">Pause</i>}</button>
                     </div>
               </div>}
-            {this.state.chapters!=null &&<p className="verse_1">{this.state.chapters.Chapter[0].Verse[0].Verse}</p>}
+              {this.state.chapters!=null && <div className="first_verse">
+                  <p className="verse_1">{this.state.chapters.Chapter[0].Verse[0].Verse}</p><p className="verse_first_no">:-{this.props.location.state.data.name} 1:1</p></div>}
             {this.state.chapters!=null &&  <div className="chapter_1">
                 <p>Select the Chapter to Read</p>
                 <select onChange={(e)=>this.getVerse(e)}  className="chapter_options">

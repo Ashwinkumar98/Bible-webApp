@@ -1,11 +1,12 @@
 import React from 'react';
+import {WhatsappShareButton, WhatsappIcon} from 'react-share';
 import logo from '../assets/logo.png';
 import './ShareVerse.css';
 
 const Shareverse=(props)=>{
     return(<div className="modal">
        <div className="pop_buttons">
-            {props.isVerse===true ?<span className="fa fa-share-alt share"></span> : null}
+            {props.isVerse===true ?<WhatsappShareButton url="web.whatsapp.com" quote={props.data.Verse + props.chapter + props.chapterNo + props.verseNo} hashtag="#JESUS_LOVES_YOU"><WhatsappIcon size={25} round={true} logoFillColor="white"/></WhatsappShareButton>:null}
             <span onClick={props.close} className="close">&times;</span>
        </div>
         <div className="img_share_container">
