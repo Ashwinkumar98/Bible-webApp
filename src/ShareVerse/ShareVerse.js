@@ -6,7 +6,7 @@ import './ShareVerse.css';
 const Shareverse=(props)=>{
     return(<div className="modal">
        <div className="pop_buttons">
-            {props.isVerse===true ?<WhatsappShareButton  url={props.data.Verse + "\n" + ":-" + props.chapter + props.chapterNo +":"+ props.verseNo +"\n"+ "https://bibleapp-front-end.herokuapp.com/"} ><WhatsappIcon size={25} round={true} logoFillColor="white"/></WhatsappShareButton>:null}
+            {props.isVerse===true ?<WhatsappShareButton  url={props.data.Verse + "\n" + ":-" + props.chapter + props.chapterNo +":"+ props.verseNo +"\n"+ "https://bibleapp-front-end.herokuapp.com/"} ><span className="fa fa-share-alt share"></span></WhatsappShareButton>:null}
             <span onClick={props.close} className="close">&times;</span>
        </div>
         <div className="img_share_container">
