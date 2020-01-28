@@ -9,6 +9,7 @@
 
 .verse_1 p{
     padding: 1.2rem;
+    font-size: 1rem;
     margin: 1rem;
     text-align: left;
     color: white;
@@ -25,6 +26,7 @@
     .verse_1 p{
        overflow-wrap: break-word;
        vertical-align: middle;
+       font-size: 0.9rem;
        width: 330px;
        padding: 1rem 0;
        line-height: 1.5rem;
