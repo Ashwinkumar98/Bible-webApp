@@ -138,26 +138,33 @@ class ChapterContent extends Component{
         },10);
     }
     componentWillMount(){
-        fetch('https://tamilbible.herokuapp.com/bible/'+this.props.location.state.data.name).then((res)=>{
-                    if(res.ok){
-                        res.json().then((data)=>{
-                            this.setState({
-                                chapters : data[0],
-                                verse : data[0].Chapter[0],
-                                index:1,
-                                chap:this.props.location.state.data.no,
-                                audio :'http://wordproaudio.org/bibles/app/audio/30/'+this.props.location.state.data.no+'/'+'1.mp3',
-                               
-                            },()=>this.x.src=this.state.audio)
-                         }); 
-                    }else{
-                        throw new Error('Something went wrong . Please try again after some times');
-                    }
-            }).catch((err)=>{
-                this.setState({
-                    err:err
-                })
-            });
+        if(this.props.location.state.data.name!=undefined && this.props.location.state.data.no!=undefined){
+            fetch('https://tamilbible.herokuapp.com/bible/'+this.props.location.state.data.name).then((res)=>{
+                        if(res.ok){
+                            res.json().then((data)=>{
+                                this.setState({
+                                    chapters : data[0],
+                                    verse : data[0].Chapter[0],
+                                    index:1,
+                                    chap:this.props.location.state.data.no,
+                                    audio :'http://wordproaudio.org/bibles/app/audio/30/'+this.props.location.state.data.no+'/'+'1.mp3',
+                                
+                                },()=>this.x.src=this.state.audio)
+                            }); 
+                        }else{
+                            throw new Error('Something went wrong . Please try again after some times');
+                        }
+                }).catch((err)=>{
+                    this.setState({
+                        err:err
+                    })
+                });
+        } else {
+            this.setState({
+                err:'No Data Loaded'
+            })
+        }
+       
          setInterval(() => {
             this.setCurrentTime();
             if(this.x.ended===true){
@@ -167,6 +174,7 @@ class ChapterContent extends Component{
     }
     componentWillUnmount(){
        this.x.pause();
+       
     }
     render(){
         return(this. state.chapters!=null ? <div>
