@@ -139,7 +139,7 @@ class ChapterContent extends Component{
         },10);
     }
     componentWillMount(){
-        if(this.props.location.state.data.name!==undefined && this.props.location.state.data.no!==undefined){
+        if(this.props.location.state!==undefined && this.props.location.state!==undefined){
             fetch('https://tamilbible.herokuapp.com/bible/'+this.props.location.state.data.name).then((res)=>{
                         if(res.ok){
                             res.json().then((data)=>{
