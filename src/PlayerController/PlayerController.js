@@ -27,7 +27,7 @@ const PlayerController=(props)=>{
                     </div>
                     <div className="audio_1">
                     <p>{props.currTime}</p>
-                        <input onChange={(e)=>props.seekmove(e)} id="sliders" className="audio_slider" type="range" min="0" max="100" defaultValue="100"  step="1" />
+                        <input onChange={(e)=>props.seekmove(e)} id="sliders" className="audio_slider" type="range" min="0" max="100" defaultValue="0"  step="1" />
                     <p>{props.duration}</p>
                     </div>
                     <div className="volume">
