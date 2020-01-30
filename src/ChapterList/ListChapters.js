@@ -33,7 +33,7 @@ class ListChapter extends Component{
                     this.setState({
                         HeadingList : data,
                         status:res.status
-                    },()=>console.log(this.state.status))
+                    })
                 });
              }else{
                  throw new Error('Something went wrong . Please try again after some times')

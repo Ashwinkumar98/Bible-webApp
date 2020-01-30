@@ -8,6 +8,7 @@ import  Verse from '../Verses/Verse.js';
 import './ChapterContent.css';
 class ChapterContent extends Component{
     x = new Audio();
+    interval;
     constructor(props){
         super(props);
         this.state={
@@ -65,7 +66,7 @@ class ChapterContent extends Component{
         this.setState({
             verse : this.state.chapters.Chapter[chapterToLoad],
             index:index,
-            audio:'https://wordproaudio.org/bibles/app/audio/30/'+this.state.chap+'/'+ audio_pos +'.mp3' ,
+            audio:`https://wordproaudio.org/bibles/app/audio/30/${this.state.chap}/${audio_pos}.mp3` ,
             play: true
         },()=>{
             this.x.src=this.state.audio;
@@ -138,18 +139,22 @@ class ChapterContent extends Component{
         },10);
     }
     componentWillMount(){
-        if(this.props.location.state.data.name!=undefined && this.props.location.state.data.no!=undefined){
+        if(this.props.location.state.data.name!==undefined && this.props.location.state.data.no!==undefined){
             fetch('https://tamilbible.herokuapp.com/bible/'+this.props.location.state.data.name).then((res)=>{
                         if(res.ok){
                             res.json().then((data)=>{
-                                this.setState({
-                                    chapters : data[0],
-                                    verse : data[0].Chapter[0],
-                                    index:1,
-                                    chap:this.props.location.state.data.no,
-                                    audio :'http://wordproaudio.org/bibles/app/audio/30/'+this.props.location.state.data.no+'/'+'1.mp3',
-                                
-                                },()=>this.x.src=this.state.audio)
+                                if(data!==undefined || data[0].Chapter!==undefined) {
+                                    this.setState({
+                                        chapters : data[0],
+                                        verse : data[0].Chapter[0],
+                                        index:1,
+                                        chap:this.props.location.state.data.no,
+                                        audio :`http://wordproaudio.org/bibles/app/audio/30/${this.props.location.state.data.no}/1.mp3`,
+                                    
+                                    },()=>this.x.src=this.state.audio)
+                                }else{
+                                    this.setState({err: 'No data'});
+                                }
                             }); 
                         }else{
                             throw new Error('Something went wrong . Please try again after some times');
@@ -165,7 +170,7 @@ class ChapterContent extends Component{
             })
         }
        
-         setInterval(() => {
+         this.interval = setInterval(() => {
             this.setCurrentTime();
             if(this.x.ended===true){
                 this.switchTrack();
@@ -174,11 +179,11 @@ class ChapterContent extends Component{
     }
     componentWillUnmount(){
        this.x.pause();
-       
+       clearInterval(this.interval);
     }
     render(){
-        return(this. state.chapters!=null ? <div>
-            <div className={this.state.shareData!=null ? this.state.background : null}>
+        return(this. state.chapters!==null ? <div>
+            <div className={this.state.shareData!==null ? this.state.background : null}>
               {this.state.chapters!=null && 
               <div className="chapter_info">
                     <div className="container_2">
@@ -219,7 +224,7 @@ class ChapterContent extends Component{
                 backward={this.Backward_play}
                 />}
             </div>
-            <div> {this.state.shareData!=null ? <SharedVerse close={this.closeModal} 
+            <div> {this.state.shareData!==null ? <SharedVerse close={this.closeModal} 
                                                             data={this.state.shareData} 
                                                             isVerse={true}
                                                             chapter={this.props.location.state.data.name} 
